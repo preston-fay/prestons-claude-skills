@@ -1,0 +1,184 @@
+{
+  "projectName": "datasync-launch",
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "durationInFrames": 900,
+    "codec": "h264",
+    "crf": 18,
+    "pixelFormat": "yuv420p"
+  },
+  "brand": {
+    "logo": "logo.svg",
+    "colors": {
+      "primary": "#2563eb",
+      "secondary": "#1e40af",
+      "accent": "#f59e0b",
+      "background": "#0f172a",
+      "text": "#f8fafc",
+      "textSecondary": "#94a3b8"
+    },
+    "fonts": {
+      "primary": "Inter",
+      "secondary": "JetBrains Mono"
+    }
+  },
+  "motion": {
+    "intensity": "moderate",
+    "transitionType": "fade",
+    "transitionDuration": 0.5,
+    "springConfig": {
+      "mass": 1,
+      "stiffness": 120,
+      "damping": 20
+    },
+    "staggerDelay": 6
+  },
+  "scenes": [
+    {
+      "id": "intro",
+      "type": "intro-logo-reveal",
+      "duration": 4,
+      "headline": "DataSync",
+      "subheadline": "Connect Everything",
+      "background": {
+        "type": "gradient",
+        "from": "#0f172a",
+        "to": "#1e293b"
+      },
+      "elements": {
+        "logo": {
+          "file": "logo.svg",
+          "animation": "scale-in",
+          "delay": 0
+        },
+        "headline": {
+          "animation": "fade-up",
+          "delay": 15
+        }
+      }
+    },
+    {
+      "id": "problem",
+      "type": "problem-statement",
+      "duration": 6,
+      "headline": "Your Data Lives in Silos",
+      "body": "Teams waste 40% of their time searching across disconnected tools",
+      "background": {
+        "type": "solid",
+        "color": "#0f172a"
+      },
+      "elements": {
+        "headline": {
+          "animation": "slide-up",
+          "delay": 0
+        },
+        "body": {
+          "animation": "fade-in",
+          "delay": 12
+        },
+        "visual": {
+          "type": "icon-grid",
+          "items": ["Slack", "Notion", "Salesforce", "Jira"],
+          "animation": "stagger-in",
+          "delay": 20
+        }
+      }
+    },
+    {
+      "id": "solution",
+      "type": "solution",
+      "duration": 6,
+      "headline": "One Platform. Total Clarity.",
+      "body": "DataSync connects your entire stack in real-time",
+      "background": {
+        "type": "gradient",
+        "from": "#1e3a5f",
+        "to": "#0f172a"
+      },
+      "elements": {
+        "headline": {
+          "animation": "slide-up",
+          "delay": 0
+        },
+        "body": {
+          "animation": "fade-in",
+          "delay": 10
+        }
+      }
+    },
+    {
+      "id": "stats",
+      "type": "data-visualization",
+      "duration": 7,
+      "headline": "Results That Speak",
+      "dataPoints": [
+        {
+          "label": "Time Saved",
+          "value": 40,
+          "suffix": "%",
+          "type": "counter"
+        },
+        {
+          "label": "Integrations",
+          "value": 200,
+          "suffix": "+",
+          "type": "counter"
+        },
+        {
+          "label": "Teams Using DataSync",
+          "value": 5000,
+          "suffix": "+",
+          "type": "counter"
+        }
+      ],
+      "background": {
+        "type": "solid",
+        "color": "#0f172a"
+      }
+    },
+    {
+      "id": "cta",
+      "type": "cta",
+      "duration": 4,
+      "headline": "Start Syncing Today",
+      "ctaText": "Try Free →",
+      "ctaUrl": "datasync.io",
+      "background": {
+        "type": "gradient",
+        "from": "#2563eb",
+        "to": "#1e40af"
+      },
+      "elements": {
+        "headline": {
+          "animation": "scale-in",
+          "delay": 0
+        },
+        "ctaButton": {
+          "animation": "slide-up",
+          "delay": 15
+        }
+      }
+    },
+    {
+      "id": "outro",
+      "type": "outro",
+      "duration": 3,
+      "headline": "DataSync",
+      "subheadline": "datasync.io",
+      "background": {
+        "type": "solid",
+        "color": "#0f172a"
+      }
+    }
+  ],
+  "audio": {
+    "backgroundMusic": null,
+    "voiceover": null,
+    "musicVolume": 0.3,
+    "fadeInDuration": 1,
+    "fadeOutDuration": 2
+  },
+  "template": "corporate-minimal"
+}

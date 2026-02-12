@@ -1,0 +1,4 @@
+interface:
+  display_name: "Bayesian Causal Discovery"
+  short_description: "Discover causal DAGs with bootstrap confidence tiers"
+  default_prompt: "Run Bayesian causal discovery on my dataset and explain the top causal edges."

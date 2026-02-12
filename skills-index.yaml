@@ -1,0 +1,346 @@
+version: '1.0'
+updated: '2026-02-09'
+location: /Users/pfay01/.claude/skills
+total_skills: 35
+skills:
+- id: .claude
+  location: /Users/pfay01/.claude/skills/.claude
+  title: null
+  command: null
+  when_to_use: null
+  purpose: null
+  examples: []
+  has_skill_md: false
+  error: '[Errno 2] No such file or directory: ''/Users/pfay01/.claude/skills/.claude/SKILL.md'''
+- id: analyze
+  location: /Users/pfay01/.claude/skills/analyze
+  title: Data Analysis & Insight Extraction
+  command: null
+  when_to_use: 'you need to go beyond EDA to synthesize findings into actionable business
+    insights." context: fork agent: general-purpose allowed-tools: - Read - Glob -
+    Grep - Bash(python *) - Bash(pip install *) - W'
+  purpose: null
+  examples: []
+  has_skill_md: true
+- id: bootstrap
+  location: /Users/pfay01/.claude/skills/bootstrap
+  title: Bootstrap
+  command: /eda
+  when_to_use: 'starting a new project or creating a new workspace." user-invocable:
+    true argument-hint: "[template-name] [project-name]" allowed-tools: - Read - Write
+    - Glob - Bash(python3 *) - Bash(mkdir *) - Bash('
+  purpose: 'This skill creates complete project structures with best practices baked
+    in: - Python virtual environments - Git initialization - Testing infrastructure
+    - Quality tooling (black, ruff, mypy, pytest) - Documentation templates - Kearney
+    Design System i'
+  examples: []
+  has_skill_md: true
+- id: canvas-design
+  location: /Users/pfay01/.claude/skills/canvas-design
+  title: null
+  command: null
+  when_to_use: null
+  purpose: null
+  examples: []
+  has_skill_md: true
+- id: create-skill
+  location: /Users/pfay01/.claude/skills/create-skill
+  title: Create
+  command: null
+  when_to_use: 'the user wants to create, build, or make a new skill, slash command,
+    or workflow automation. disable-model-invocation: true argument-hint: "[skill-name
+    (optional)]" allowed-tools: - Read - Write - Glo'
+  purpose: 'is critical** - it''s how Claude decides to load the skill. Include: -
+    What the skill does - Specific triggers (file types, phrases, scenarios)'
+  examples: []
+  has_skill_md: true
+- id: data-request
+  location: /Users/pfay01/.claude/skills/data-request
+  title: Data Request Builder
+  command: null
+  when_to_use: null
+  purpose: '- Starting a new analysis and need data from the client - Previous data
+    requests came back incomplete or wrong - Working with IT/data teams who need precise
+    specifications - Building a data dictionary for a project'
+  examples: []
+  has_skill_md: true
+- id: deck-builder
+  location: /Users/pfay01/.claude/skills/deck-builder
+  title: Slide Deck Builder
+  command: null
+  when_to_use: '| |------------|---------|-------------| | **Title Slide** | Set context,
+    establish credibility | Always first | | **Executive Summary** | Answer upfront
+    for busy executives | Always second (or after '
+  purpose: '- Building a client presentation from scratch - Organizing findings into
+    a coherent narrative - Deciding what to include vs. cut - Writing action titles
+    for slides'
+  examples: []
+  has_skill_md: true
+- id: docx
+  location: /Users/pfay01/.claude/skills/docx
+  title: DOCX creation, editing, and analysis
+  command: null
+  when_to_use: null
+  purpose: 'A user may ask you to create, edit, or analyze the contents of a .docx
+    file. A .docx file is essentially a ZIP archive containing XML files and other
+    resources that you can read or edit. You have different tools and workflows available
+    for different '
+  examples: []
+  has_skill_md: true
+- id: eda
+  location: /Users/pfay01/.claude/skills/eda
+  title: Exploratory Data Analysis (EDA)
+  command: null
+  when_to_use: 'analyzing CSV, Excel, Parquet, or database data to understand structure,
+    quality, distributions, correlations, and anomalies." context: fork agent: general-purpose
+    allowed-tools: - Read - Glob - Grep '
+  purpose: '```python def dataset_overview(df): """Generate comprehensive dataset
+    overview.""" print("=" * 60) print("DATASET OVERVIEW") print("=" * 60)'
+  examples: []
+  has_skill_md: true
+- id: exec-summary
+  location: /Users/pfay01/.claude/skills/exec-summary
+  title: Executive Summary Writer
+  command: null
+  when_to_use: null
+  purpose: '- You need to create a 1-page summary of a longer document - An executive
+    asked "give me the bottom line" - Writing an email summary of project findings
+    - Creating a cover memo for a detailed report'
+  examples: []
+  has_skill_md: true
+- id: frontend-design
+  location: /Users/pfay01/.claude/skills/frontend-design
+  title: null
+  command: null
+  when_to_use: null
+  purpose: null
+  examples: []
+  has_skill_md: true
+- id: growth-matrix
+  location: /Users/pfay01/.claude/skills/growth-matrix
+  title: Growth-Efficiency Matrix (2x2 Portfolio Analysis)
+  command: null
+  when_to_use: This Skill
+  purpose: Classify business units, products, or segments into strategic quadrants
+    based on growth rate and efficiency/margin to guide portfolio decisions.
+  examples: []
+  has_skill_md: true
+- id: hypothesis-tree
+  location: /Users/pfay01/.claude/skills/hypothesis-tree
+  title: Hypothesis Tree Builder
+  command: null
+  when_to_use: null
+  purpose: null
+  examples: []
+  has_skill_md: true
+- id: insight-synth
+  location: /Users/pfay01/.claude/skills/insight-synth
+  title: Insight Synthesizer
+  command: null
+  when_to_use: null
+  purpose: '- You''ve completed analysis and need to extract meaning - Someone asks
+    "So what?" and you''re not sure how to answer - Your findings feel like facts,
+    not insights - You need to connect data to business decisions'
+  examples: []
+  has_skill_md: true
+- id: interview
+  location: /Users/pfay01/.claude/skills/interview
+  title: Requirements Interview
+  command: null
+  when_to_use: 'starting a new engagement, feature, or analysis to systematically
+    capture objectives, constraints, stakeholders, and success criteria through structured
+    dialogue." disable-model-invocation: true conte'
+  purpose: null
+  examples: []
+  has_skill_md: true
+- id: issue-tree
+  location: /Users/pfay01/.claude/skills/issue-tree
+  title: Issue Tree Decomposer
+  command: null
+  when_to_use: null
+  purpose: null
+  examples: []
+  has_skill_md: true
+- id: kearney
+  location: /Users/pfay01/.claude/skills/kearney
+  title: null
+  command: null
+  when_to_use: null
+  purpose: null
+  examples: []
+  has_skill_md: false
+  error: '[Errno 2] No such file or directory: ''/Users/pfay01/.claude/skills/kearney/SKILL.md'''
+- id: kearney-design
+  location: /Users/pfay01/.claude/skills/kearney-design
+  title: Kearney Design System
+  command: null
+  when_to_use: creating visualizations, dashboards, slides, reports, or any visual
+    output that should follow Kearney brand guidelines. Automatically applies correct
+    colors, typography, chart rules, and component pat
+  purpose: 'This is the comprehensive design system for creating beautiful, consistent
+    deliverables across all Kearney formats: data visualizations, reports, slides,
+    applications, and dashboards. **All visual output must follow these guidelines.**'
+  examples: []
+  has_skill_md: true
+- id: map
+  location: /Users/pfay01/.claude/skills/map
+  title: Geographic Visualization
+  command: null
+  when_to_use: null
+  purpose: null
+  examples: []
+  has_skill_md: true
+- id: market-sizing
+  location: /Users/pfay01/.claude/skills/market-sizing
+  title: TAM/SAM/SOM Market Sizing Framework
+  command: null
+  when_to_use: This Skill
+  purpose: Size markets using the Total Addressable Market (TAM), Serviceable Addressable
+    Market (SAM), and Serviceable Obtainable Market (SOM) framework.
+  examples: []
+  has_skill_md: true
+- id: mcp-builder
+  location: /Users/pfay01/.claude/skills/mcp-builder
+  title: MCP Server Development Guide
+  command: null
+  when_to_use: 'building MCP servers to integrate external APIs or services, whether
+    in Python (FastMCP) or Node/TypeScript (MCP SDK). license: Complete terms in LICENSE.txt
+    allowed-tools: - Read - Write - Edit - Glo'
+  purpose: Create MCP (Model Context Protocol) servers that enable LLMs to interact
+    with external services through well-designed tools. The quality of an MCP server
+    is measured by how well it enables LLMs to accomplish real-world tasks.
+  examples: []
+  has_skill_md: true
+- id: methods-guide
+  location: /Users/pfay01/.claude/skills/methods-guide
+  title: Analytical Methods Guide
+  command: null
+  when_to_use: '| |-------------------|----------------|-------------| | "What drives
+    our [metric]?" | **Regression Analysis** | Identify which factors impact an outcome
+    | | "How has [metric] changed over time?" | **'
+  purpose: '- You have data and need to determine how to analyze it - You''re choosing
+    between statistical methods - You need guidance on interpreting results - You
+    want to avoid common analytical pitfalls'
+  examples: []
+  has_skill_md: true
+- id: observable-framework
+  location: /Users/pfay01/.claude/skills/observable-framework
+  title: Observable Framework Slide Builder
+  command: null
+  when_to_use: 'building interactive dashboards, data-driven presentations, or analytical
+    reports using Observable Framework." context: fork agent: general-purpose allowed-tools:
+    - Read - Write - Edit - Glob - Grep -'
+  purpose: null
+  examples: []
+  has_skill_md: true
+- id: pdf
+  location: /Users/pfay01/.claude/skills/pdf
+  title: PDF Processing Guide
+  command: null
+  when_to_use: null
+  purpose: This guide covers essential PDF processing operations using Python libraries
+    and command-line tools. For advanced features, JavaScript libraries, and detailed
+    examples, see reference.md. If you need to fill out a PDF form, read forms.md
+    and follow it
+  examples: []
+  has_skill_md: true
+- id: pptx
+  location: /Users/pfay01/.claude/skills/pptx
+  title: PPTX creation, editing, and analysis
+  command: null
+  when_to_use: null
+  purpose: 'A user may ask you to create, edit, or analyze the contents of a .pptx
+    file. A .pptx file is essentially a ZIP archive containing XML files and other
+    resources that you can read or edit. You have different tools and workflows available
+    for different '
+  examples: []
+  has_skill_md: true
+- id: react-best-practices
+  location: /Users/pfay01/.claude/skills/react-best-practices
+  title: Vercel React Best Practices
+  command: null
+  when_to_use: 'on tasks involving React components, Next.js pages, data fetching,
+    bundle optimization, or performance improvements. license: MIT metadata: author:
+    vercel version: "1.0.0" user-invocable: false allowe'
+  purpose: null
+  examples: []
+  has_skill_md: true
+- id: remotion
+  location: /Users/pfay01/.claude/skills/remotion
+  title: Remotion Video Producer
+  command: null
+  when_to_use: null
+  purpose: null
+  examples: []
+  has_skill_md: true
+- id: scrape
+  location: /Users/pfay01/.claude/skills/scrape
+  title: Web Scraping & Data Acquisition
+  command: null
+  when_to_use: null
+  purpose: null
+  examples: []
+  has_skill_md: true
+- id: setup-workflow
+  location: /Users/pfay01/.claude/skills/setup-workflow
+  title: Workflow Setup Interview
+  command: null
+  when_to_use: TodoWrite, based on Q5 - Complexity]
+  purpose: null
+  examples: []
+  has_skill_md: true
+- id: storytell
+  location: /Users/pfay01/.claude/skills/storytell
+  title: Data Storytelling
+  command: null
+  when_to_use: 'you need to communicate insights to stakeholders, create executive
+    presentations, or write data-driven reports that persuade and inform." allowed-tools:
+    - Read - Write - Glob ---'
+  purpose: null
+  examples: []
+  has_skill_md: true
+- id: value-chain
+  location: /Users/pfay01/.claude/skills/value-chain
+  title: Value Chain Diagnostic Framework
+  command: null
+  when_to_use: This Skill
+  purpose: 'Analyze cost, revenue, and margin by value chain stage to identify: -
+    Where margin is leaking - Where costs are concentrated - Operational inefficiencies
+    - Benchmarking opportunities'
+  examples: []
+  has_skill_md: true
+- id: web-artifacts-builder
+  location: /Users/pfay01/.claude/skills/web-artifacts-builder
+  title: Web Artifacts Builder
+  command: null
+  when_to_use: null
+  purpose: null
+  examples: []
+  has_skill_md: true
+- id: web-design-guidelines
+  location: /Users/pfay01/.claude/skills/web-design-guidelines
+  title: Web Interface Guidelines
+  command: null
+  when_to_use: 'asked to "review my UI", "check accessibility", "audit design", "review
+    UX", or "check my site against best practices". metadata: author: vercel version:
+    "1.0.0" argument-hint: <file-or-pattern> allow'
+  purpose: null
+  examples: []
+  has_skill_md: true
+- id: webapp-testing
+  location: /Users/pfay01/.claude/skills/webapp-testing
+  title: Web Application Testing
+  command: null
+  when_to_use: null
+  purpose: null
+  examples: []
+  has_skill_md: true
+- id: xlsx
+  location: /Users/pfay01/.claude/skills/xlsx
+  title: Requirements for Outputs
+  command: null
+  when_to_use: null
+  purpose: A user may ask you to create, edit, or analyze the contents of an .xlsx
+    file. You have different tools and workflows available for different tasks.
+  examples: []
+  has_skill_md: true
