@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preston's Claude Skills — Cheatsheet</title>
+<style>
+  :root {
+    --bg: #f9f9f8;
+    --surface: #ffffff;
+    --border: #e8e6e1;
+    --text: #1a1a1a;
+    --muted: #6b6860;
+    --accent: #0a2540;
+
+    --cat-strategy:   #1a56a0;
+    --cat-data:       #0e7a5f;
+    --cat-documents:  #7c3aed;
+    --cat-design:     #c2410c;
+    --cat-dev:        #1d4e3a;
+    --cat-workflow:   #92400e;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  header {
+    background: var(--accent);
+    color: white;
+    padding: 40px 48px 36px;
+  }
+  header h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.3px; }
+  header p  { margin-top: 6px; font-size: 14px; opacity: 0.7; }
+
+  .toolbar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 48px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .toolbar input {
+    flex: 1;
+    max-width: 360px;
+    padding: 8px 14px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 13px;
+    outline: none;
+    background: var(--bg);
+  }
+  .toolbar input:focus { border-color: var(--accent); }
+
+  .legend {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .legend-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+  }
+
+  main { padding: 36px 48px 64px; }
+
+  .category { margin-bottom: 48px; }
+  .category-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--border);
+  }
+  .category-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: white;
+    padding: 3px 10px;
+    border-radius: 4px;
+  }
+  .category-count {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: box-shadow 0.15s;
+  }
+  .card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.07); }
+
+  .card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .card-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.2px;
+  }
+
+  .card-tag {
+    font-family: "SF Mono", "Fira Code", monospace;
+    font-size: 11px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 2px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .card-use {
+    font-size: 13px;
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .card-detail {
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+
+  .card-why {
+    font-size: 12px;
+    color: var(--muted);
+    font-style: italic;
+    padding-top: 6px;
+    border-top: 1px solid var(--border);
+  }
+  .card-why strong { color: var(--text); font-style: normal; }
+
+  /* ─── Top 10 Featured Section ───────────────────────────────────────── */
+
+  #featured {
+    margin-bottom: 56px;
+    background: linear-gradient(160deg, #fffbeb 0%, #fefce8 100%);
+    border: 1px solid #fcd34d;
+    border-radius: 14px;
+    padding: 32px 32px 28px;
+  }
+
+  .featured-header { margin-bottom: 28px; }
+
+  .featured-eyebrow {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #b45309;
+    margin-bottom: 6px;
+  }
+
+  .featured-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a1a1a;
+    letter-spacing: -0.3px;
+  }
+
+  .featured-subtitle {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 5px;
+  }
+
+  .tier-block { margin-bottom: 28px; }
+  .tier-block:last-child { margin-bottom: 0; }
+
+  .tier-heading {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #b45309;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .tier-heading::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #fde68a;
+  }
+
+  #featured .card {
+    border-color: #fde68a;
+    background: #fffff8;
+  }
+  #featured .card:hover {
+    border-color: #fbbf24;
+    box-shadow: 0 4px 16px rgba(180,83,9,0.08);
+  }
+
+  .rank-name {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .rank-badge {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .tier-essential .rank-badge  { background: #92400e; }
+  .tier-analysis  .rank-badge  { background: #0e7a5f; }
+  .tier-output    .rank-badge  { background: #1a56a0; }
+
+  .hidden { display: none !important; }
+
+  .no-results {
+    display: none;
+    text-align: center;
+    padding: 48px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Preston's Claude Skills</h1>
+  <p>Skill reference — what each skill does, when to use it, and why it matters</p>
+</header>
+
+<div class="toolbar">
+  <input type="text" id="search" placeholder="Search skills…" oninput="filterSkills(this.value)">
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--cat-strategy)"></div>Strategy</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--cat-data)"></div>Data</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--cat-documents)"></div>Documents</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--cat-design)"></div>Design</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--cat-dev)"></div>Engineering</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--cat-workflow)"></div>Workflow</div>
+  </div>
+</div>
+
+<main>
+
+<!-- ─── KEARNEY TOP 10 ────────────────────────────────────────────────── -->
+<section id="featured">
+  <div class="featured-header">
+    <div class="featured-eyebrow">Recommended Starting Point</div>
+    <div class="featured-title">Kearney Top 10</div>
+    <div class="featured-subtitle">Highest-impact skills for technical colleagues doing analysis, delivery, and client work</div>
+  </div>
+
+  <!-- Tier 1 -->
+  <div class="tier-block">
+    <div class="tier-heading">Tier 1 — Kearney Essentials</div>
+    <div class="grid">
+
+      <div class="card tier-essential" data-keywords="boris cherny high integrity tdd spec types testing engineering">
+        <div class="card-top">
+          <div class="rank-name">
+            <div class="rank-badge">1</div>
+            <div class="card-name">Boris — High-Integrity Engineering</div>
+          </div>
+          <div class="card-tag">/boris</div>
+        </div>
+        <div class="card-use">Activate spec-first, TDD, strongly-typed engineering discipline</div>
+        <div class="card-detail">A full engineering discipline mode: anti-injection guardrails, spec-before-code, types-before-logic, test-before-implementation. Includes 7 workflow commands (new-project, verify-app, test-and-fix, review-changes, quick-commit, commit-push-pr, add-rule).</div>
+        <div class="card-why"><strong>Why it makes the top 10:</strong> The fastest way to write software is to write it right the first time. Boris mode enforces the discipline that makes that possible — for everyone on the team.</div>
+      </div>
+
+      <div class="card tier-essential" data-keywords="kds design kearney design system brand tokens grid typography">
+        <div class="card-top">
+          <div class="rank-name">
+            <div class="rank-badge">2</div>
+            <div class="card-name">KDS Design Engine</div>
+          </div>
+          <div class="card-tag">/kds-design</div>
+        </div>
+        <div class="card-use">Enforce Kearney brand standards across all UI and visual output</div>
+        <div class="card-detail">Universal Design Programme Engine (UDPE). Enforces KDS brand invariants: 8px grid, Major Third type scale, WCAG AA contrast, token discipline, spatial rhythm. Auto-applies to any UI generation, dashboard, slide, or visualization task.</div>
+        <div class="card-why"><strong>Why it makes the top 10:</strong> Brand consistency at scale requires rules, not judgment. KDS-design makes brand compliance automatic — every chart, dashboard, and deliverable looks Kearney without extra effort.</div>
+      </div>
+
+      <div class="card tier-essential" data-keywords="observable framework dashboard 16x9 kearney visualization slides">
+        <div class="card-top">
+          <div class="rank-name">
+            <div class="rank-badge">3</div>
+            <div class="card-name">Observable Framework</div>
+          </div>
+          <div class="card-tag">/observable-framework</div>
+        </div>
+        <div class="card-use">Build interactive Kearney-branded dashboards and data presentations</div>
+        <div class="card-detail">Creates Observable Framework dashboards with 16:9 slide presentations, D3-powered visualizations, and executive-ready insights. Outputs are web-native, interactive, and Kearney-branded out of the box.</div>
+        <div class="card-why"><strong>Why it makes the top 10:</strong> Static charts in decks are dead the moment they're printed. Observable dashboards let clients explore the data themselves — and they look unmistakably Kearney.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Tier 2 -->
+  <div class="tier-block">
+    <div class="tier-heading">Tier 2 — The Analysis Chain</div>
+    <div class="grid">
+
+      <div class="card tier-analysis" data-keywords="eda exploratory data analysis profile dataset statistics">
+        <div class="card-top">
+          <div class="rank-name">
+            <div class="rank-badge">4</div>
+            <div class="card-name">Exploratory Data Analysis</div>
+          </div>
+          <div class="card-tag">/eda</div>
+        </div>
+        <div class="card-use">Profile datasets and surface patterns before analysis begins</div>
+        <div class="card-detail">Generates statistical summaries, distribution plots, correlation matrices, missing data maps, and anomaly flags for CSV, Excel, Parquet, or database inputs. First step on any unfamiliar dataset.</div>
+        <div class="card-why"><strong>Why it makes the top 10:</strong> You can't analyze what you don't understand. EDA surfaces data quality issues and unexpected patterns before they corrupt your conclusions.</div>
+      </div>
+
+      <div class="card tier-analysis" data-keywords="analyze insights recommendations executive summary findings">
+        <div class="card-top">
+          <div class="rank-name">
+            <div class="rank-badge">5</div>
+            <div class="card-name">Analyze</div>
+          </div>
+          <div class="card-tag">/analyze</div>
+        </div>
+        <div class="card-use">Extract key patterns and generate actionable recommendations</div>
+        <div class="card-detail">Goes beyond EDA to synthesize findings into business insights. Identifies top drivers, segments, and anomalies — then creates an executive summary with prioritized recommendations.</div>
+        <div class="card-why"><strong>Why it makes the top 10:</strong> EDA tells you what the data looks like. Analyze tells you what it means and what to do about it. That's the transition from analysis to advice.</div>
+      </div>
+
+      <div class="card tier-analysis" data-keywords="story-architect storytelling narrative data story rosling factfulness">
+        <div class="card-top">
+          <div class="rank-name">
+            <div class="rank-badge">6</div>
+            <div class="card-name">Story Architect</div>
+          </div>
+          <div class="card-tag">/story-architect</div>
+        </div>
+        <div class="card-use">Build data narratives that change how people think</div>
+        <div class="card-detail">Diagnoses audience cognitive biases using Factfulness instincts, structures narratives with Rosling's 5-phase dramatic arc, and builds persuasive stories with progressive revelation and surprise pivots.</div>
+        <div class="card-why"><strong>Why it makes the top 10:</strong> The difference between analysis that gets acted on and analysis that gets shelved is almost always the story. This skill forces the right narrative structure before a single slide gets made.</div>
+      </div>
+
+      <div class="card tier-analysis" data-keywords="hans rosling data storytelling factfulness gapminder">
+        <div class="card-top">
+          <div class="rank-name">
+            <div class="rank-badge">7</div>
+            <div class="card-name">Hans Rosling Reference</div>
+          </div>
+          <div class="card-tag">hans-rosling/</div>
+        </div>
+        <div class="card-use">Comprehensive reference on the world's greatest data storyteller</div>
+        <div class="card-detail">Deep analysis of Rosling's methods: animated bubble charts, Misconception→Data→Surprise→Hope narrative arc, Factfulness instincts, and the physical theatrics that made data feel like a spectator sport.</div>
+        <div class="card-why"><strong>Why it makes the top 10:</strong> Rosling's methods are the gold standard for data communication. Understanding them analytically — not just watching them — lets you apply the principles deliberately, not accidentally.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Tier 3 -->
+  <div class="tier-block">
+    <div class="tier-heading">Tier 3 — Consulting Output</div>
+    <div class="grid">
+
+      <div class="card tier-output" data-keywords="executive summary scqa pyramid one-pager">
+        <div class="card-top">
+          <div class="rank-name">
+            <div class="rank-badge">8</div>
+            <div class="card-name">Executive Summary Writer</div>
+          </div>
+          <div class="card-tag">/exec-summary</div>
+        </div>
+        <div class="card-use">Distill complex analysis into compelling 1-page summaries</div>
+        <div class="card-detail">Uses SCQA (Situation-Complication-Question-Answer) and Pyramid Principle to structure executive summaries. Leads with the recommendation, not the journey. Built for senior audiences with low reading patience.</div>
+        <div class="card-why"><strong>Why it makes the top 10:</strong> Most analysts bury the lead. SCQA forces the answer first, which is what every executive actually wants — and what every Kearney deliverable should deliver.</div>
+      </div>
+
+      <div class="card tier-output" data-keywords="pptx powerpoint presentation slides layouts">
+        <div class="card-top">
+          <div class="rank-name">
+            <div class="rank-badge">9</div>
+            <div class="card-name">PowerPoint (pptx)</div>
+          </div>
+          <div class="card-tag">/pptx</div>
+        </div>
+        <div class="card-use">Create, modify, and analyze .pptx presentations programmatically</div>
+        <div class="card-detail">Supports creating new presentations, editing existing ones, working with slide layouts, adding speaker notes and comments. Can batch-process slides and apply consistent formatting at scale.</div>
+        <div class="card-why"><strong>Why it makes the top 10:</strong> PowerPoint is the delivery format for virtually every Kearney client output. Programmatic generation beats manual formatting when working with data-driven content or templates.</div>
+      </div>
+
+      <div class="card tier-output" data-keywords="bayesian causal discovery dag root cause drivers">
+        <div class="card-top">
+          <div class="rank-name">
+            <div class="rank-badge">10</div>
+            <div class="card-name">Bayesian Causal Discovery</div>
+          </div>
+          <div class="card-tag">/bayesian-causal-discovery</div>
+        </div>
+        <div class="card-use">Discover causal relationships in data — not just correlations</div>
+        <div class="card-detail">Runs Bayesian causal structure learning on tabular data to produce a directed acyclic graph (DAG), bootstrap stability analysis, and confidence-tiered edge findings. Works on CSV, SQLite, or pandas DataFrames.</div>
+        <div class="card-why"><strong>Why it makes the top 10:</strong> Correlation tells you what moves together. Causality tells you what to change. For root-cause and driver analysis on client engagements, this is the difference between a recommendation and a guess.</div>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+<!-- ─── STRATEGY & CONSULTING ─────────────────────────────────────────── -->
+<section class="category" data-category="strategy">
+  <div class="category-header">
+    <span class="category-label" style="background:var(--cat-strategy)">Strategy &amp; Consulting</span>
+    <span class="category-count">11 skills</span>
+  </div>
+  <div class="grid">
+
+    <div class="card" data-keywords="story-architect storytelling narrative data story rosling factfulness">
+      <div class="card-top">
+        <div class="card-name">Story Architect</div>
+        <div class="card-tag">/story-architect</div>
+      </div>
+      <div class="card-use">Build data narratives that change how people think</div>
+      <div class="card-detail">Diagnoses audience cognitive biases using Factfulness instincts, structures narratives with Rosling's 5-phase dramatic arc, and builds persuasive stories with progressive revelation and surprise pivots. Delegates to Storytell for simpler write-ups.</div>
+      <div class="card-why"><strong>Why:</strong> The difference between analysis that gets acted on and analysis that gets shelved is almost always the story. This forces the right structure from the start.</div>
+    </div>
+
+    <div class="card" data-keywords="storytell narrative templates exec summary write-up">
+      <div class="card-top">
+        <div class="card-name">Storytell</div>
+        <div class="card-tag">/storytell</div>
+      </div>
+      <div class="card-use">Quick narrative templates and writing techniques</div>
+      <div class="card-detail">Provides proven story structures (Problem-Solution, Journey, Comparison), writing techniques (lead with insight, quantify, create contrast), and report templates for exec summaries, one-pagers, and slide outlines.</div>
+      <div class="card-why"><strong>Why:</strong> A consistent structure shaves hours off write-ups and forces you to answer "so what?" before you start writing.</div>
+    </div>
+
+    <div class="card" data-keywords="issue tree mece decompose problem breakdown">
+      <div class="card-top">
+        <div class="card-name">Issue Tree</div>
+        <div class="card-tag">/issue-tree</div>
+      </div>
+      <div class="card-use">Decompose complex problems into MECE issue trees</div>
+      <div class="card-detail">Breaks any business question into 3–4 levels of mutually exclusive, collectively exhaustive sub-issues. Forces logical completeness and reveals where the real question lives.</div>
+      <div class="card-why"><strong>Why:</strong> Most bad analysis attacks the wrong problem. An issue tree prevents that by making the problem structure explicit before any work begins.</div>
+    </div>
+
+    <div class="card" data-keywords="hypothesis tree testable hypotheses structured thinking">
+      <div class="card-top">
+        <div class="card-name">Hypothesis Tree</div>
+        <div class="card-tag">/hypothesis-tree</div>
+      </div>
+      <div class="card-use">Build structured hypothesis trees with testable sub-hypotheses</div>
+      <div class="card-detail">Converts a business question into a hierarchy of falsifiable hypotheses, each with a defined test and success criterion. Ensures analysis is driven by hypotheses, not just data exploration.</div>
+      <div class="card-why"><strong>Why:</strong> Hypothesis-first thinking is 3–5× faster than open-ended exploration because you know exactly what you're looking for and when to stop.</div>
+    </div>
+
+    <div class="card" data-keywords="insight synthesizer so what analysis findings">
+      <div class="card-top">
+        <div class="card-name">Insight Synthesizer</div>
+        <div class="card-tag">/insight-synth</div>
+      </div>
+      <div class="card-use">Transform raw analysis into meaningful, actionable insights</div>
+      <div class="card-detail">Applies the "So What?" technique to convert observations into insights. Forces every finding to answer what it means, why it matters, and what to do about it.</div>
+      <div class="card-why"><strong>Why:</strong> Raw findings aren't insights — insights are findings plus implication. This skill does the translation automatically.</div>
+    </div>
+
+    <div class="card" data-keywords="growth matrix bcg stars cash cows portfolio quadrant">
+      <div class="card-top">
+        <div class="card-name">Growth &amp; Efficiency Matrix</div>
+        <div class="card-tag">/growth-matrix</div>
+      </div>
+      <div class="card-use">Classify business units into strategic quadrants</div>
+      <div class="card-detail">Places business units into Stars, Cash Cows, Question Marks, and Turnarounds using growth and profitability axes. Generates portfolio strategy recommendations and prioritization rationale.</div>
+      <div class="card-why"><strong>Why:</strong> A clear portfolio view prevents the trap of treating all businesses the same — different quadrants need fundamentally different strategies.</div>
+    </div>
+
+    <div class="card" data-keywords="value chain margin leakage cost revenue diagnostic">
+      <div class="card-top">
+        <div class="card-name">Value Chain Diagnostic</div>
+        <div class="card-tag">/value-chain</div>
+      </div>
+      <div class="card-use">Find margin leakage across the value chain</div>
+      <div class="card-detail">Analyzes cost, revenue, and margin by value chain stage. Surfaces where value is created vs. destroyed and builds the fact base for where to focus improvement efforts.</div>
+      <div class="card-why"><strong>Why:</strong> Margin improvement without a value chain view is guesswork. This skill makes the invisible visible before any recommendations are made.</div>
+    </div>
+
+    <div class="card" data-keywords="market sizing tam sam som top-down bottom-up">
+      <div class="card-top">
+        <div class="card-name">Market Sizing</div>
+        <div class="card-tag">/market-sizing</div>
+      </div>
+      <div class="card-use">Size markets using TAM / SAM / SOM frameworks</div>
+      <div class="card-detail">Builds both top-down (industry data → segment share) and bottom-up (unit economics × addressable buyers) market size estimates. Triangulates and surfaces key assumptions.</div>
+      <div class="card-why"><strong>Why:</strong> Clients use market size to justify investments. Two approaches that converge make the estimate defensible under scrutiny.</div>
+    </div>
+
+    <div class="card" data-keywords="executive summary scqa pyramid one-pager">
+      <div class="card-top">
+        <div class="card-name">Executive Summary Writer</div>
+        <div class="card-tag">/exec-summary</div>
+      </div>
+      <div class="card-use">Distill complex analysis into compelling 1-page summaries</div>
+      <div class="card-detail">Uses SCQA (Situation-Complication-Question-Answer) and Pyramid Principle to structure executive summaries. Leads with the recommendation, not the journey. Built for senior audiences with low reading patience.</div>
+      <div class="card-why"><strong>Why:</strong> Most analysts bury the lead. SCQA forces the answer first, which is what every executive actually wants.</div>
+    </div>
+
+    <div class="card" data-keywords="methods guide analytical method selection framework">
+      <div class="card-top">
+        <div class="card-name">Analytical Methods Guide</div>
+        <div class="card-tag">/methods-guide</div>
+      </div>
+      <div class="card-use">Select and execute the right analytical method</div>
+      <div class="card-detail">Maps business questions to analytical methods (regression, clustering, benchmarking, scenario analysis, etc.). Provides execution guidance, required data, and interpretation frameworks for each method.</div>
+      <div class="card-why"><strong>Why:</strong> Method-question mismatch is one of the most common sources of wasted analysis. This prevents it.</div>
+    </div>
+
+    <div class="card" data-keywords="deck builder slides presentation narrative flow action titles">
+      <div class="card-top">
+        <div class="card-name">Slide Deck Builder</div>
+        <div class="card-tag">/deck-builder</div>
+      </div>
+      <div class="card-use">Structure compelling presentations with clear narrative flow</div>
+      <div class="card-detail">Builds slide-by-slide outlines with action titles, story arcs, and section logic. Ensures each slide has one idea, one message, and a clear relationship to what comes before and after.</div>
+      <div class="card-why"><strong>Why:</strong> A presentation with a logical flow needs 30% fewer slides and gets 100% more buy-in. Structure first, then content.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── DATA & ANALYSIS ───────────────────────────────────────────────── -->
+<section class="category" data-category="data">
+  <div class="category-header">
+    <span class="category-label" style="background:var(--cat-data)">Data &amp; Analysis</span>
+    <span class="category-count">5 skills</span>
+  </div>
+  <div class="grid">
+
+    <div class="card" data-keywords="eda exploratory data analysis profile dataset statistics">
+      <div class="card-top">
+        <div class="card-name">Exploratory Data Analysis</div>
+        <div class="card-tag">/eda</div>
+      </div>
+      <div class="card-use">Profile datasets and discover patterns before analysis begins</div>
+      <div class="card-detail">Generates statistical summaries, distribution plots, correlation matrices, missing data maps, and anomaly flags for CSV, Excel, Parquet, or database inputs. Output is a structured profile report.</div>
+      <div class="card-why"><strong>Why:</strong> You can't analyze what you don't understand. EDA surfaces data quality issues and unexpected patterns before they corrupt your conclusions.</div>
+    </div>
+
+    <div class="card" data-keywords="analyze insights recommendations executive summary findings">
+      <div class="card-top">
+        <div class="card-name">Analyze</div>
+        <div class="card-tag">/analyze</div>
+      </div>
+      <div class="card-use">Extract key patterns and generate actionable recommendations</div>
+      <div class="card-detail">Goes beyond EDA to synthesize findings into business insights. Identifies top drivers, segments, anomalies, and creates an executive summary with prioritized recommendations.</div>
+      <div class="card-why"><strong>Why:</strong> EDA tells you what the data looks like — Analyze tells you what it means and what to do about it.</div>
+    </div>
+
+    <div class="card" data-keywords="bayesian causal discovery dag root cause drivers">
+      <div class="card-top">
+        <div class="card-name">Bayesian Causal Discovery</div>
+        <div class="card-tag">/bayesian-causal-discovery</div>
+      </div>
+      <div class="card-use">Discover causal relationships in data — not just correlations</div>
+      <div class="card-detail">Runs Bayesian causal structure learning on tabular data to produce a directed acyclic graph (DAG), bootstrap stability analysis, and confidence-tiered edge findings. Works on CSV, SQLite, or pandas DataFrames.</div>
+      <div class="card-why"><strong>Why:</strong> Correlation tells you what moves together. Causality tells you what to change. For root-cause and driver analysis, this is the difference between a recommendation and a guess.</div>
+    </div>
+
+    <div class="card" data-keywords="map geographic choropleth points regions spatial">
+      <div class="card-top">
+        <div class="card-name">Map</div>
+        <div class="card-tag">/map</div>
+      </div>
+      <div class="card-use">Create geographic visualizations from location data</div>
+      <div class="card-detail">Generates point maps, choropleth maps, route maps, and spatial analysis from coordinates, addresses, country/state data, or GeoJSON. Handles geocoding and map styling automatically.</div>
+      <div class="card-why"><strong>Why:</strong> Geographic patterns are invisible in tables and charts. A single map often communicates in seconds what a pivot table can't in minutes.</div>
+    </div>
+
+    <div class="card" data-keywords="data request precise clean data requirements">
+      <div class="card-top">
+        <div class="card-name">Data Request Builder</div>
+        <div class="card-tag">/data-request</div>
+      </div>
+      <div class="card-use">Create precise data requests that get you the right data the first time</div>
+      <div class="card-detail">Structures data pull requests with exact field specifications, filters, time periods, granularity, and format requirements. Eliminates back-and-forth with data teams by making every requirement explicit.</div>
+      <div class="card-why"><strong>Why:</strong> Vague data requests waste weeks. A well-formed request gets you usable data on the first pull.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── DOCUMENTS & OUTPUT ─────────────────────────────────────────────── -->
+<section class="category" data-category="documents">
+  <div class="category-header">
+    <span class="category-label" style="background:var(--cat-documents)">Documents &amp; Output</span>
+    <span class="category-count">7 skills</span>
+  </div>
+  <div class="grid">
+
+    <div class="card" data-keywords="docx word document tracked changes comments formatting">
+      <div class="card-top">
+        <div class="card-name">Word Documents (docx)</div>
+        <div class="card-tag">/docx</div>
+      </div>
+      <div class="card-use">Create, edit, and analyze .docx files with full formatting support</div>
+      <div class="card-detail">Handles document creation, content modification, tracked changes, comments, and text extraction. Preserves complex formatting including tables, headers, styles, and embedded objects.</div>
+      <div class="card-why"><strong>Why:</strong> Word is still how most client deliverables get reviewed and redlined. This skill handles the document layer so you stay focused on content.</div>
+    </div>
+
+    <div class="card" data-keywords="pptx powerpoint presentation slides layouts">
+      <div class="card-top">
+        <div class="card-name">PowerPoint (pptx)</div>
+        <div class="card-tag">/pptx</div>
+      </div>
+      <div class="card-use">Create, modify, and analyze .pptx presentations programmatically</div>
+      <div class="card-detail">Supports creating new presentations, editing existing ones, working with slide layouts, adding speaker notes and comments. Can batch-process slides and apply consistent formatting at scale.</div>
+      <div class="card-why"><strong>Why:</strong> Programmatic slide generation beats manual formatting every time when you're working with data-driven content or templates.</div>
+    </div>
+
+    <div class="card" data-keywords="pdf extract tables forms merge split create">
+      <div class="card-top">
+        <div class="card-name">PDF Toolkit</div>
+        <div class="card-tag">/pdf</div>
+      </div>
+      <div class="card-use">Extract, create, merge, split, and fill PDF documents</div>
+      <div class="card-detail">Extracts text and tables, creates new PDFs, merges and splits documents, and handles fillable forms — all programmatically. Handles scanned and structured PDFs alike.</div>
+      <div class="card-why"><strong>Why:</strong> PDFs are everywhere in consulting work — contracts, reports, regulatory filings. This skill makes them machine-readable and manipulable.</div>
+    </div>
+
+    <div class="card" data-keywords="spreadsheet excel csv openpyxl formulas formatting">
+      <div class="card-top">
+        <div class="card-name">Spreadsheet</div>
+        <div class="card-tag">/spreadsheet</div>
+      </div>
+      <div class="card-use">Create, edit, and analyze spreadsheets while preserving formulas</div>
+      <div class="card-detail">Works with .xlsx, .csv, and .tsv files using Python (openpyxl, pandas). Preserves formulas, references, and formatting. Handles conditional formatting, charts, and data validation.</div>
+      <div class="card-why"><strong>Why:</strong> The difference between a spreadsheet that works and one that breaks is formula integrity. This skill ensures transformations don't silently destroy your model logic.</div>
+    </div>
+
+    <div class="card" data-keywords="observable framework dashboard 16x9 visualization slides">
+      <div class="card-top">
+        <div class="card-name">Observable Framework</div>
+        <div class="card-tag">/observable-framework</div>
+      </div>
+      <div class="card-use">Build interactive Kearney-branded dashboards and data presentations</div>
+      <div class="card-detail">Creates Observable Framework dashboards with 16:9 slide presentations, D3-powered visualizations, and executive-ready insights. Outputs are web-native, interactive, and Kearney-branded.</div>
+      <div class="card-why"><strong>Why:</strong> Static charts in decks are dead the moment they're printed. Observable dashboards let clients explore the data themselves — which is how insights actually land.</div>
+    </div>
+
+    <div class="card" data-keywords="remotion video motion graphics animation programmatic">
+      <div class="card-top">
+        <div class="card-name">Remotion Video Producer</div>
+        <div class="card-tag">/remotion</div>
+      </div>
+      <div class="card-use">Create programmatic videos and motion graphics from code</div>
+      <div class="card-detail">End-to-end video production: interviews the user, collects brand assets, composes scenes, and generates complete Remotion projects. Handles animated explainers, product demos, social clips, and data-driven video. No video editing experience required.</div>
+      <div class="card-why"><strong>Why:</strong> Video communicates in ways slides can't — especially for complex processes, change management, or external audiences. Programmatic video means you can update data and re-render instantly.</div>
+    </div>
+
+    <div class="card" data-keywords="hans rosling data storytelling factfulness gapminder">
+      <div class="card-top">
+        <div class="card-name">Hans Rosling Reference</div>
+        <div class="card-tag">hans-rosling/</div>
+      </div>
+      <div class="card-use">Comprehensive reference on the world's greatest data storyteller</div>
+      <div class="card-detail">Deep analysis of Rosling's methods: animated bubble charts, Misconception→Data→Surprise→Hope narrative arc, Factfulness instincts, and the physical theatrics that made data feel like a spectator sport. Includes deconstruction of his masterworks.</div>
+      <div class="card-why"><strong>Why:</strong> Rosling's methods are the gold standard for data communication. Understanding them analytically — not just watching them — lets you apply the principles deliberately.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── DESIGN & FRONTEND ──────────────────────────────────────────────── -->
+<section class="category" data-category="design">
+  <div class="category-header">
+    <span class="category-label" style="background:var(--cat-design)">Design &amp; Frontend</span>
+    <span class="category-count">7 skills</span>
+  </div>
+  <div class="grid">
+
+    <div class="card" data-keywords="kds design kearney design system brand tokens grid typography">
+      <div class="card-top">
+        <div class="card-name">KDS Design Engine</div>
+        <div class="card-tag">/kds-design</div>
+      </div>
+      <div class="card-use">Enforce Kearney brand standards across all UI output</div>
+      <div class="card-detail">Universal Design Programme Engine (UDPE). Enforces KDS brand invariants: 8px grid, Major Third type scale, WCAG AA contrast, token discipline, spatial rhythm. Auto-applies to any UI generation, dashboard, slide, or visualization task.</div>
+      <div class="card-why"><strong>Why:</strong> Brand consistency at scale requires rules, not judgment. KDS-design makes brand compliance automatic rather than manual.</div>
+    </div>
+
+    <div class="card" data-keywords="frontend design web components ui pages production grade">
+      <div class="card-top">
+        <div class="card-name">Frontend Design</div>
+        <div class="card-tag">/frontend-design</div>
+      </div>
+      <div class="card-use">Build production-grade frontend interfaces with high design quality</div>
+      <div class="card-detail">Creates web components, pages, dashboards, React components, and HTML/CSS layouts with distinctive visual design — not generic AI aesthetics. Handles responsive layouts, accessible components, and polished interactions.</div>
+      <div class="card-why"><strong>Why:</strong> Most AI-generated UI looks like AI-generated UI. This skill applies real design thinking to produce work that looks considered.</div>
+    </div>
+
+    <div class="card" data-keywords="figma design fetch nodes variables assets mcp">
+      <div class="card-top">
+        <div class="card-name">Figma</div>
+        <div class="card-tag">/figma</div>
+      </div>
+      <div class="card-use">Read design context, assets, and variables from Figma via MCP</div>
+      <div class="card-detail">Uses the Figma MCP server to fetch design context, screenshots, variables, and assets. Enables design-to-code workflows, component inspection, and design system integration directly in Claude.</div>
+      <div class="card-why"><strong>Why:</strong> Connecting Claude to Figma closes the gap between design intent and implementation, eliminating the translation step that causes most design drift.</div>
+    </div>
+
+    <div class="card" data-keywords="figma implement design code 1:1 fidelity pixel perfect">
+      <div class="card-top">
+        <div class="card-name">Figma Implement Design</div>
+        <div class="card-tag">/figma-implement-design</div>
+      </div>
+      <div class="card-use">Translate Figma designs into production code with 1:1 visual fidelity</div>
+      <div class="card-detail">Takes Figma node URLs/IDs and produces production-ready code that matches the design exactly. Uses MCP for design context, screenshots, and assets. Adapts to project conventions (React, HTML, CSS frameworks).</div>
+      <div class="card-why"><strong>Why:</strong> The most expensive part of design-to-code is the QC cycle. Pixel-perfect output from the first pass eliminates it.</div>
+    </div>
+
+    <div class="card" data-keywords="web artifacts builder html artifacts react shadcn multi-component">
+      <div class="card-top">
+        <div class="card-name">Web Artifacts Builder</div>
+        <div class="card-tag">/web-artifacts-builder</div>
+      </div>
+      <div class="card-use">Create elaborate multi-component HTML artifacts for claude.ai</div>
+      <div class="card-detail">Suite of tools for building complex claude.ai HTML artifacts using React, Tailwind CSS, and shadcn/ui. Handles state management, routing, and multi-component architectures. Use when a simple single-file artifact won't cut it.</div>
+      <div class="card-why"><strong>Why:</strong> Complex interactive artifacts require a proper component architecture. This skill provides the scaffolding so you're not reinventing it each time.</div>
+    </div>
+
+    <div class="card" data-keywords="web design guidelines accessibility wcag audit review ui">
+      <div class="card-top">
+        <div class="card-name">Web Design Guidelines</div>
+        <div class="card-tag">/web-design-guidelines</div>
+      </div>
+      <div class="card-use">Audit UI code for accessibility and design best practices</div>
+      <div class="card-detail">Reviews UI code against Web Interface Guidelines: accessibility (WCAG), responsive design, semantic HTML, color contrast, keyboard navigation, and UX patterns. Returns a prioritized findings report.</div>
+      <div class="card-why"><strong>Why:</strong> Accessibility issues are both an ethical problem and a liability. Catching them at review time costs 10× less than fixing them post-launch.</div>
+    </div>
+
+    <div class="card" data-keywords="canvas design art poster visual static print png pdf">
+      <div class="card-top">
+        <div class="card-name">Canvas Design</div>
+        <div class="card-tag">/canvas-design</div>
+      </div>
+      <div class="card-use">Create static visual art — posters, prints, and designed documents</div>
+      <div class="card-detail">Produces beautiful .png and .pdf outputs using design philosophy. Handles posters, infographics, designed reports, and visual art. Applies typographic and layout principles from print design.</div>
+      <div class="card-why"><strong>Why:</strong> Some deliverables need to look like a designed object, not a slide. Canvas-design produces work that can go straight to print.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── ENGINEERING ────────────────────────────────────────────────────── -->
+<section class="category" data-category="dev">
+  <div class="category-header">
+    <span class="category-label" style="background:var(--cat-dev)">Engineering</span>
+    <span class="category-count">9 skills</span>
+  </div>
+  <div class="grid">
+
+    <div class="card" data-keywords="boris cherny high integrity tdd spec types testing engineering">
+      <div class="card-top">
+        <div class="card-name">Boris — High-Integrity Engineering</div>
+        <div class="card-tag">/boris</div>
+      </div>
+      <div class="card-use">Activate spec-first, TDD, strongly-typed engineering discipline</div>
+      <div class="card-detail">A full engineering discipline mode: anti-injection guardrails, spec-before-code, types-before-logic, test-before-implementation. Includes 7 workflow commands (new-project, verify-app, test-and-fix, review-changes, quick-commit, commit-push-pr, add-rule).</div>
+      <div class="card-why"><strong>Why:</strong> The fastest way to write software is to write it right the first time. Boris mode enforces the discipline that makes that possible.</div>
+    </div>
+
+    <div class="card" data-keywords="react next.js performance optimization vercel engineering">
+      <div class="card-top">
+        <div class="card-name">React Best Practices</div>
+        <div class="card-tag">/react-best-practices</div>
+      </div>
+      <div class="card-use">Enforce React and Next.js performance optimization patterns</div>
+      <div class="card-detail">Guidelines from Vercel Engineering covering memoization, data fetching, bundle optimization, suspense boundaries, server components, and re-render avoidance. Applies to code review, refactoring, and greenfield React/Next.js work.</div>
+      <div class="card-why"><strong>Why:</strong> React performance problems are invisible until production. These patterns prevent the most common pitfalls before they become user-facing issues.</div>
+    </div>
+
+    <div class="card" data-keywords="mcp model context protocol server integration tools">
+      <div class="card-top">
+        <div class="card-name">MCP Builder</div>
+        <div class="card-tag">/mcp-builder</div>
+      </div>
+      <div class="card-use">Build MCP servers that connect LLMs to external services</div>
+      <div class="card-detail">Guide for creating high-quality Model Context Protocol servers in Python (FastMCP) or Node/TypeScript (MCP SDK). Covers tool design, error handling, authentication, and best practices for LLM-facing APIs.</div>
+      <div class="card-why"><strong>Why:</strong> MCP is how you give Claude access to real systems — databases, APIs, internal tools. A well-designed MCP server is the bridge between the LLM and your data.</div>
+    </div>
+
+    <div class="card" data-keywords="gh fix ci github actions pr checks failing debug">
+      <div class="card-top">
+        <div class="card-name">GH Fix CI</div>
+        <div class="card-tag">/gh-fix-ci</div>
+      </div>
+      <div class="card-use">Debug and fix failing GitHub Actions PR checks</div>
+      <div class="card-detail">Uses the gh CLI to inspect PR checks and logs, summarizes failure context, drafts a fix plan, and implements only after explicit approval. Scoped to GitHub Actions — treats external providers (Buildkite, CircleCI) as out of scope.</div>
+      <div class="card-why"><strong>Why:</strong> CI failures kill velocity. This skill makes the inspect-diagnose-fix cycle fast and safe by requiring approval before touching anything.</div>
+    </div>
+
+    <div class="card" data-keywords="playwright browser automation terminal CLI navigation forms">
+      <div class="card-top">
+        <div class="card-name">Playwright</div>
+        <div class="card-tag">/playwright</div>
+      </div>
+      <div class="card-use">Automate real browser interactions from the terminal</div>
+      <div class="card-detail">Runs browser automation via playwright-cli or the bundled wrapper script. Handles navigation, form filling, snapshots, screenshots, data extraction, and UI-flow debugging. Works headless or with a visible browser.</div>
+      <div class="card-why"><strong>Why:</strong> When scraping fails, forms won't submit, or you need to test flows that require a real browser, Playwright is the right tool. This skill makes it accessible without Playwright expertise.</div>
+    </div>
+
+    <div class="card" data-keywords="scrape web scraping data acquisition rate limits pagination">
+      <div class="card-top">
+        <div class="card-name">Scrape</div>
+        <div class="card-tag">/scrape</div>
+      </div>
+      <div class="card-use">Extract structured data from websites and APIs</div>
+      <div class="card-detail">Handles web scraping and data acquisition: parsing HTML, handling pagination, managing rate limits, rotating headers, and storing scraped data in structured formats. Adapts to static and dynamic pages.</div>
+      <div class="card-why"><strong>Why:</strong> Publicly available data is everywhere — pricing, job listings, market signals, competitive intelligence. This skill gets it into a format you can actually analyze.</div>
+    </div>
+
+    <div class="card" data-keywords="vercel deploy deployment preview production web app">
+      <div class="card-top">
+        <div class="card-name">Vercel Deploy</div>
+        <div class="card-tag">/vercel-deploy</div>
+      </div>
+      <div class="card-use">Deploy applications and get preview URLs on Vercel</div>
+      <div class="card-detail">Runs the bundled deploy.sh script for claimable-preview Vercel deployments. Handles build configuration, environment variables, and deployment status reporting. Gets you a shareable URL fast.</div>
+      <div class="card-why"><strong>Why:</strong> A live preview URL in a client conversation is worth ten screenshots. This skill makes deployment a one-step operation.</div>
+    </div>
+
+    <div class="card" data-keywords="screenshot desktop capture macos screen window">
+      <div class="card-top">
+        <div class="card-name">Screenshot</div>
+        <div class="card-tag">/screenshot</div>
+      </div>
+      <div class="card-use">Capture desktop, application, or region screenshots</div>
+      <div class="card-detail">Takes OS-level screenshots on macOS — full screen, specific app window, or a defined pixel region. Useful when browser-based capture isn't sufficient or when you need to capture native application state.</div>
+      <div class="card-why"><strong>Why:</strong> Sometimes you need to capture exactly what's on screen — not a web page render, but the actual pixel state. This skill provides that capability at the OS level.</div>
+    </div>
+
+    <div class="card" data-keywords="skill creator build new skill codex workflow">
+      <div class="card-top">
+        <div class="card-name">Skill Creator</div>
+        <div class="card-tag">/skill-creator</div>
+      </div>
+      <div class="card-use">Build new Claude skills with guided structure</div>
+      <div class="card-detail">Guides the creation of new skills: generates SKILL.md definitions, OpenAI YAML configurations, and validates structure. Includes init_skill.py and generate_openai_yaml.py scripts for scaffolding.</div>
+      <div class="card-why"><strong>Why:</strong> The skills library compounds in value when new capabilities get formalized. This skill makes adding new skills systematic rather than ad hoc.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── WORKFLOW & META ────────────────────────────────────────────────── -->
+<section class="category" data-category="workflow">
+  <div class="category-header">
+    <span class="category-label" style="background:var(--cat-workflow)">Workflow &amp; Meta</span>
+    <span class="category-count">6 skills</span>
+  </div>
+  <div class="grid">
+
+    <div class="card" data-keywords="bootstrap new project template python consulting research">
+      <div class="card-top">
+        <div class="card-name">Bootstrap</div>
+        <div class="card-tag">/bootstrap</div>
+      </div>
+      <div class="card-use">Scaffold new projects from curated templates</div>
+      <div class="card-detail">Bootstraps new workspaces from templates: python-data, python-app, consulting, research, or generic. Sets up folder structure, dependency files, .gitignore, and CLAUDE.md workflow instructions in one step.</div>
+      <div class="card-why"><strong>Why:</strong> Project setup is a tax on starting. Bootstrap eliminates it — you go from idea to working environment in under a minute.</div>
+    </div>
+
+    <div class="card" data-keywords="setup workflow claude.md project instructions interview configure">
+      <div class="card-top">
+        <div class="card-name">Setup Workflow</div>
+        <div class="card-tag">/setup-workflow</div>
+      </div>
+      <div class="card-use">Build optimized CLAUDE.md workflow instructions for any project</div>
+      <div class="card-detail">Interviews the user about project goals, tech stack, code style, testing approach, and preferences — then generates a customized CLAUDE.md that configures Claude's behavior for that project specifically.</div>
+      <div class="card-why"><strong>Why:</strong> Claude without a CLAUDE.md is a blank slate. A good CLAUDE.md makes every session more productive by encoding project context once rather than re-explaining it every time.</div>
+    </div>
+
+    <div class="card" data-keywords="interview requirements gathering project kickoff objectives">
+      <div class="card-top">
+        <div class="card-name">Interview</div>
+        <div class="card-tag">/interview</div>
+      </div>
+      <div class="card-use">Systematically gather project requirements through structured dialogue</div>
+      <div class="card-detail">Conversational requirements gathering for any project, feature, or analysis. Captures objectives, constraints, stakeholders, success criteria, and edge cases through a structured dialogue rather than an open-ended prompt.</div>
+      <div class="card-why"><strong>Why:</strong> Most project failures trace back to unclear requirements. A structured interview up front costs 20 minutes and saves days of rework.</div>
+    </div>
+
+    <div class="card" data-keywords="spit n polish QC quality check review brand violations design">
+      <div class="card-top">
+        <div class="card-name">Spit &amp; Polish</div>
+        <div class="card-tag">/spit-n-polish</div>
+      </div>
+      <div class="card-use">Fine-toothed QC review of any output asset before delivery</div>
+      <div class="card-detail">Reviews finished HTML pages, dashboards, visualizations, slides, and reports for KDS brand violations, overlapping text, bad legends, overflowing visualizations, poor alignment, spacing issues, and accessibility failures. Returns a prioritized defect list.</div>
+      <div class="card-why"><strong>Why:</strong> The last 5% of polish is what clients remember. This skill catches the issues that are invisible during creation but obvious on first viewing.</div>
+    </div>
+
+    <div class="card" data-keywords="skill installer install list codex github">
+      <div class="card-top">
+        <div class="card-name">Skill Installer</div>
+        <div class="card-tag">/skill-installer</div>
+      </div>
+      <div class="card-use">Install new skills from a curated list or GitHub repo</div>
+      <div class="card-detail">Lists installable skills from the Codex catalog or installs them from a GitHub repo path (including private repos). Handles installation into the skills directory automatically.</div>
+      <div class="card-why"><strong>Why:</strong> New skills shouldn't require manual file management. This skill makes adding capabilities as simple as naming what you want.</div>
+    </div>
+
+    <div class="card" data-keywords="commands references rails go validate doctor status build">
+      <div class="card-top">
+        <div class="card-name">Command References</div>
+        <div class="card-tag">commands/references/</div>
+      </div>
+      <div class="card-use">Slash-command definitions for project-type and workflow commands</div>
+      <div class="card-detail">Contains 12 command-style MDs: rails, go, validate, doctor, status, build, intent, spec, theme, preview, sampledata, startkie. Each defines a slash command invokable in any Claude session for that workflow.</div>
+      <div class="card-why"><strong>Why:</strong> Repeatable operations — validating a build, previewing a theme, generating sample data — shouldn't require prose instructions. Commands make them one-word invocations.</div>
+    </div>
+
+  </div>
+</section>
+
+<div class="no-results" id="no-results">No skills match your search.</div>
+
+</main>
+
+<script>
+function filterSkills(query) {
+  const q = query.toLowerCase().trim();
+  let totalVisible = 0;
+
+  // Hide the featured section while searching — categories show the full filtered list
+  document.getElementById('featured').classList.toggle('hidden', !!q);
+
+  // Filter cards inside category sections only
+  document.querySelectorAll('.category .card').forEach(card => {
+    const text = (card.dataset.keywords + ' ' + card.textContent).toLowerCase();
+    const visible = !q || text.includes(q);
+    card.classList.toggle('hidden', !visible);
+    if (visible) totalVisible++;
+  });
+
+  // Hide empty category sections
+  document.querySelectorAll('.category').forEach(cat => {
+    const visible = [...cat.querySelectorAll('.card')].some(c => !c.classList.contains('hidden'));
+    cat.classList.toggle('hidden', !visible);
+  });
+
+  document.getElementById('no-results').style.display = totalVisible === 0 ? 'block' : 'none';
+}
+</script>
+
+</body>
+</html>
