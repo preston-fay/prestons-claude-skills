@@ -335,6 +335,31 @@ skills:
   purpose: null
   examples: []
   has_skill_md: true
+- id: spit-n-polish
+  location: /Users/pfay01/.claude/skills/spit-n-polish
+  title: QC Review Agent
+  command: /spit-n-polish
+  when_to_use: after producing any visual asset (HTML, dashboard, visualization, slide,
+    report) to review for KDS brand violations, overlapping text, bad legends, overflowing
+    visualizations, poor alignment, spacing issues, accessibility failures, and design defects.
+  purpose: Meticulous quality-control agent that runs 6-pass review protocol on finished
+    output assets. Catches brand violations, layout defects, data viz quality issues,
+    accessibility failures, and functional problems. Produces severity-tiered report
+    and offers auto-fix mode.
+  examples:
+    - "/spit-n-polish ./output/dashboard.html"
+    - "/spit-n-polish http://localhost:3000"
+    - "/spit-n-polish ./plots/causal_dag.png"
+  has_skill_md: true
+- id: write-as-preston
+  location: /Users/pfay01/.claude/skills/write-as-preston
+  title: Write as Preston Fay
+  command: /write-as-preston
+  when_to_use: when Preston needs help writing LinkedIn posts, client emails, presentations,
+    or any other content in his authentic voice.
+  purpose: Write content in Preston Fay's authentic voice and style.
+  examples: []
+  has_skill_md: true
 - id: xlsx
   location: /Users/pfay01/.claude/skills/xlsx
   title: Requirements for Outputs

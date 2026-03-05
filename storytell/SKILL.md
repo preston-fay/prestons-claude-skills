@@ -1,6 +1,6 @@
 ---
 name: storytell
-description: "Transform data analysis into compelling narratives. Use when you need to communicate insights to stakeholders, create executive presentations, or write data-driven reports that persuade and inform."
+description: "Data narrative templates and writing techniques. Provides story structures (Problem-Solution, Journey, Comparison), writing techniques (lead with insight, quantify, create contrast), and report templates (exec summary, one-pager, slide outline). Typically invoked by story-architect for simple narrative needs. Use directly when you just need a quick write-up template without full narrative architecture."
 allowed-tools:
   - Read
   - Write

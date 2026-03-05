@@ -55,7 +55,7 @@ Based on analysis of official Kearney PowerPoint templates:
 ```
 Kearney Purple:  #7823DC (primary accent)
 Kearney Black:   #1E1E1E (text, dark backgrounds)
-Kearney Gray:    #A5A5A5 (secondary text)
+Kearney Gray:    #A5A5A5 (secondary text — ALL CONTEXTS including dark backgrounds)
 Kearney White:   #FFFFFF (backgrounds)
 
 Chart Colors (use in order 1-10):
@@ -64,6 +64,28 @@ Chart Colors (use in order 1-10):
 
 Dark Theme Primary: #9150E1 (brighter purple for visibility)
 ```
+
+### ⚠️ Text Legibility Rules (STRICTLY ENFORCED)
+
+**`#787878` is a CHART DATA COLOR — it is NOT a text color on dark backgrounds.**
+
+| Background | Secondary text color | Minimum font size |
+|------------|---------------------|-------------------|
+| Light (#FFF, #F5F5F5) | `#787878` OK | 11px |
+| Dark (#1E1E1E, #222, #323232, #2A2A2A) | **`#A5A5A5` REQUIRED** | **12px** |
+
+**NEVER write `color:#787878` in an inline style on a dark card, dark slide, or dark container.** This is the single most common legibility failure in Kearney dashboards.
+
+When writing inline styles on dark backgrounds, always use:
+```html
+<!-- ✅ CORRECT — dark background -->
+<div style="font-size:12px;color:#A5A5A5;line-height:1.6">secondary text</div>
+
+<!-- ❌ WRONG — #787878 is invisible on dark backgrounds -->
+<div style="font-size:10px;color:#787878">secondary text</div>
+```
+
+When using CSS classes (preferred), `var(--muted-foreground)` is already correct because the theme sets it to `#A5A5A5` in dark mode. The problem only occurs with hardcoded inline hex values.
 
 ### Required Elements
 - ✅ Kearney logo at BOTTOM LEFT (embedded SVG)
@@ -400,7 +422,7 @@ Initialize at end of body: `<script>lucide.createIcons();</script>`
     .kpi-value.white { color: var(--foreground); }
     .kpi-value.gray { color: var(--muted-foreground); }
     .kpi-label {
-      font-size: 10px;
+      font-size: 12px;
       font-weight: 600;
       color: var(--muted-foreground);
       margin-top: 6px;
@@ -460,7 +482,7 @@ Initialize at end of body: `<script>lucide.createIcons();</script>`
       color: var(--foreground);
       padding: 12px 14px;
       font-weight: 600;
-      font-size: 10px;
+      font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }

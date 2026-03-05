@@ -1,5 +1,5 @@
 # Skills Index - Complete Reference
-**Last Updated:** 2026-02-09 | **Location:** `~/.claude/skills` | **Total Skills:** 36
+**Last Updated:** 2026-03-01 | **Location:** `~/.claude/skills` | **Total Skills:** 37
 
 Complete catalog of all available skills for Claude Code and Cowork. This index replaces `MY_SKILLS.md` with a more comprehensive, searchable reference.
 
@@ -12,7 +12,7 @@ Complete catalog of all available skills for Claude Code and Cowork. This index 
 - [Data Acquisition](#data-acquisition) (2 skills)
 - [Visualization & Storytelling](#visualization--storytelling) (3 skills)
 - [Documents](#documents) (4 skills)
-- [Design](#design) (2 skills)
+- [Design](#design) (3 skills)
 - [Frontend Development](#frontend-development) (6 skills)
 - [Utilities & Development](#utilities--development) (7 skills)
 
@@ -163,10 +163,16 @@ Complete catalog of all available skills for Claude Code and Cowork. This index 
 **Output:** Beautiful .png and .pdf documents with design philosophy
 **Example:** `/canvas-design create poster for conference`
 
-### Kearney Design → `/kearney-design`
+### KDS Design → `kds-design` (auto-applies)
+**When:** Auto-applies to ALL visual generation tasks — UI, dashboards, visualizations, slides, layouts, components
+**Output:** UDPE-enforced output: 8px grid, Major Third type scale, WCAG AA contrast, token discipline, spatial rhythm
+**Note:** Non-invocable — auto-applies via description matching. Supersedes kearney-design with Layers 0-3 structural enforcement. Backed by TypeScript reference implementation at `/Users/pfay01/Projects/kds-design/src/`
+
+### Kearney Design → `/kearney-design` *(superseded by kds-design)*
 **When:** Creating ANY visual element - charts, slides, dashboards, reports
 **Output:** Kearney brand compliance - colors, typography, chart formatting, layout
 **Example:** `/kearney-design apply brand standards to dashboard`
+**Note:** Retained for backward compatibility. kds-design absorbs all Layer 0 tokens and adds Layers 1-3 enforcement.
 
 ---
 
@@ -359,7 +365,7 @@ If a skill doesn't work as documented, check:
 
 1. **Always start with the problem** - Use `/hypothesis-tree` or `/issue-tree` before diving into analysis
 2. **Data quality first** - Run `/eda` before any analysis to understand your data
-3. **Brand compliance** - Use `/kearney-design` for all client-facing visuals
+3. **Brand compliance** - `kds-design` auto-applies to all visual output (supersedes `/kearney-design`)
 4. **Insight hierarchy** - Push from data → information → insight → recommendation
 5. **Action titles** - Every slide title states the "so what," not just the topic
 6. **MECE everything** - Issue trees, hypotheses, and recommendations should be MECE
