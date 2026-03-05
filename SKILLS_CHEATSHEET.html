@@ -5,271 +5,323 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Preston's Claude Skills — Cheatsheet</title>
 <style>
+  /* ─── KDS Token Registry ──────────────────────────────────────────── */
   :root {
-    --bg: #f9f9f8;
-    --surface: #ffffff;
-    --border: #e8e6e1;
-    --text: #1a1a1a;
-    --muted: #6b6860;
-    --accent: #0a2540;
+    /* Core palette */
+    --kds-black:  #1E1E1E;
+    --kds-white:  #FFFFFF;
+    --kds-gray:   #A5A5A5;
+    --kds-purple: #7823DC;
 
-    --cat-strategy:   #1a56a0;
-    --cat-data:       #0e7a5f;
-    --cat-documents:  #7c3aed;
-    --cat-design:     #c2410c;
-    --cat-dev:        #1d4e3a;
-    --cat-workflow:   #92400e;
+    /* Extended grays */
+    --gray-100: #F5F5F5;
+    --gray-200: #E6E6E6;
+    --gray-300: #B9B9B9;
+    --gray-500: #5F5F5F;
+    --gray-600: #323232;
+
+    /* Chart sequence (used in order) */
+    --chart-4: #E0D2FA;
+    --chart-5: #C8A5F0;
+
+    /* Spacing scale (8px base) */
+    --space-1:  4px;
+    --space-2:  8px;
+    --space-4:  16px;
+    --space-6:  24px;
+    --space-8:  32px;
+    --space-10: 40px;
+    --space-12: 48px;
+    --space-16: 64px;
+
+    /* Type scale — Major Third (1.25×), base 16px */
+    --type-caption: 10px;
+    --type-small:   13px;
+    --type-body:    16px;
+    --type-lead:    20px;
+    --type-h3:      25px;
+    --type-h2:      31px;
+
+    /* Line heights */
+    --lh-caption: 12px;
+    --lh-small:   16px;
+    --lh-body:    24px;
+    --lh-lead:    32px;
+    --lh-h3:      32px;
+    --lh-h2:      40px;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    font-size: 14px;
-    line-height: 1.5;
+    font-family: Inter, Arial, sans-serif;
+    background-color: var(--gray-100);
+    color: var(--kds-black);
+    font-size: var(--type-body);
+    line-height: var(--lh-body);
   }
 
+  /* ─── Header ──────────────────────────────────────────────────────── */
   header {
-    background: var(--accent);
-    color: white;
-    padding: 40px 48px 36px;
+    background-color: var(--kds-black);
+    padding: var(--space-10) var(--space-16) var(--space-8);
   }
-  header h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.3px; }
-  header p  { margin-top: 6px; font-size: 14px; opacity: 0.7; }
 
+  .header-eyebrow {
+    font-size: var(--type-caption);
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--kds-purple);
+    margin-bottom: var(--space-2);
+  }
+
+  header h1 {
+    font-size: var(--type-h2);
+    font-weight: 700;
+    line-height: var(--lh-h2);
+    color: var(--kds-white);
+    letter-spacing: -0.01em;
+  }
+
+  header p {
+    font-size: var(--type-small);
+    line-height: var(--lh-small);
+    color: var(--kds-gray);
+    margin-top: var(--space-2);
+  }
+
+  /* ─── Toolbar ─────────────────────────────────────────────────────── */
   .toolbar {
     display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 16px 48px;
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    gap: var(--space-8);
+    padding: var(--space-4) var(--space-16);
+    background-color: var(--kds-white);
+    border-bottom: 1px solid var(--gray-200);
   }
 
   .toolbar input {
-    flex: 1;
     max-width: 360px;
-    padding: 8px 14px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    font-size: 13px;
-    outline: none;
-    background: var(--bg);
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid var(--gray-300);
+    border-radius: 0;
+    font-size: var(--type-small);
+    font-family: Inter, Arial, sans-serif;
+    color: var(--kds-black);
+    background-color: var(--gray-100);
+    cursor: text;
   }
-  .toolbar input:focus { border-color: var(--accent); }
+  .toolbar input:focus {
+    outline: none;
+    border: 1px solid var(--kds-purple);
+  }
 
   .legend {
     display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
+    gap: var(--space-6);
   }
   .legend-item {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 12px;
-    color: var(--muted);
-  }
-  .legend-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
+    font-size: var(--type-caption);
+    line-height: var(--lh-caption);
+    color: var(--gray-500);
   }
 
-  main { padding: 36px 48px 64px; }
-
-  .category { margin-bottom: 48px; }
-  .category-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
-    padding-bottom: 12px;
-    border-bottom: 2px solid var(--border);
-  }
-  .category-label {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: white;
-    padding: 3px 10px;
-    border-radius: 4px;
-  }
-  .category-count {
-    font-size: 12px;
-    color: var(--muted);
+  /* ─── Main layout ─────────────────────────────────────────────────── */
+  main {
+    padding: var(--space-8) var(--space-16) var(--space-16);
+    max-width: 1440px;
   }
 
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 16px;
-  }
-
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    transition: box-shadow 0.15s;
-  }
-  .card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.07); }
-
-  .card-top {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 12px;
-  }
-
-  .card-name {
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--text);
-    letter-spacing: -0.2px;
-  }
-
-  .card-tag {
-    font-family: "SF Mono", "Fira Code", monospace;
-    font-size: 11px;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    color: var(--muted);
-    padding: 2px 8px;
-    border-radius: 4px;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  .card-use {
-    font-size: 13px;
-    color: var(--text);
-    font-weight: 500;
-  }
-
-  .card-detail {
-    font-size: 12.5px;
-    color: var(--muted);
-    line-height: 1.55;
-  }
-
-  .card-why {
-    font-size: 12px;
-    color: var(--muted);
-    font-style: italic;
-    padding-top: 6px;
-    border-top: 1px solid var(--border);
-  }
-  .card-why strong { color: var(--text); font-style: normal; }
-
-  /* ─── Top 10 Featured Section ───────────────────────────────────────── */
-
+  /* ─── Top 10 Featured ─────────────────────────────────────────────── */
   #featured {
-    margin-bottom: 56px;
-    background: linear-gradient(160deg, #fffbeb 0%, #fefce8 100%);
-    border: 1px solid #fcd34d;
-    border-radius: 14px;
-    padding: 32px 32px 28px;
+    background-color: var(--chart-4);
+    border: 2px solid var(--kds-purple);
+    border-radius: 0;
+    padding: var(--space-8);
+    margin-bottom: var(--space-12);
   }
 
-  .featured-header { margin-bottom: 28px; }
+  .featured-header {
+    margin-bottom: var(--space-8);
+  }
 
   .featured-eyebrow {
-    font-size: 10px;
+    font-size: var(--type-caption);
     font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: #b45309;
-    margin-bottom: 6px;
+    letter-spacing: 0.12em;
+    color: var(--kds-purple);
+    margin-bottom: var(--space-2);
   }
 
   .featured-title {
-    font-size: 20px;
+    font-size: var(--type-h3);
     font-weight: 700;
-    color: #1a1a1a;
-    letter-spacing: -0.3px;
+    line-height: var(--lh-h3);
+    color: var(--kds-black);
   }
 
   .featured-subtitle {
-    font-size: 13px;
-    color: var(--muted);
-    margin-top: 5px;
+    font-size: var(--type-small);
+    line-height: var(--lh-small);
+    color: var(--gray-600);
+    margin-top: var(--space-2);
   }
 
-  .tier-block { margin-bottom: 28px; }
+  .tier-block {
+    margin-bottom: var(--space-8);
+  }
   .tier-block:last-child { margin-bottom: 0; }
 
   .tier-heading {
-    font-size: 10px;
+    font-size: var(--type-caption);
     font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: #b45309;
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    letter-spacing: 0.1em;
+    color: var(--kds-purple);
+    border-bottom: 1px solid var(--kds-purple);
+    padding-bottom: var(--space-2);
+    margin-bottom: var(--space-4);
   }
-  .tier-heading::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: #fde68a;
+
+  /* ─── Cards ───────────────────────────────────────────────────────── */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--space-4);
+  }
+
+  .card {
+    background-color: var(--kds-white);
+    border: 1px solid var(--gray-200);
+    border-radius: 0;
+    padding: var(--space-6);
   }
 
   #featured .card {
-    border-color: #fde68a;
-    background: #fffff8;
+    background-color: var(--kds-white);
+    border: 1px solid var(--kds-purple);
+    border-radius: 0;
   }
-  #featured .card:hover {
-    border-color: #fbbf24;
-    box-shadow: 0 4px 16px rgba(180,83,9,0.08);
+
+  .card-top {
+    display: flex;
+    gap: var(--space-4);
+    margin-bottom: var(--space-4);
   }
 
   .rank-name {
     display: flex;
-    align-items: center;
-    gap: 10px;
+    gap: var(--space-2);
   }
 
   .rank-badge {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    color: white;
-    font-size: 11px;
+    display: inline-block;
+    background-color: var(--kds-purple);
+    color: var(--kds-white);
+    font-size: var(--type-caption);
     font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+    line-height: var(--lh-caption);
+    padding: var(--space-1) var(--space-2);
+    border-radius: 0;
   }
-  .tier-essential .rank-badge  { background: #92400e; }
-  .tier-analysis  .rank-badge  { background: #0e7a5f; }
-  .tier-output    .rank-badge  { background: #1a56a0; }
 
+  .card-name {
+    font-size: var(--type-body);
+    font-weight: 700;
+    line-height: var(--lh-body);
+    color: var(--kds-black);
+  }
+
+  .card-tag {
+    font-size: var(--type-caption);
+    line-height: var(--lh-caption);
+    background-color: var(--gray-100);
+    border: 1px solid var(--gray-200);
+    color: var(--gray-500);
+    padding: var(--space-1) var(--space-2);
+    border-radius: 0;
+  }
+
+  .card-use {
+    font-size: var(--type-small);
+    font-weight: 600;
+    line-height: var(--lh-small);
+    color: var(--kds-black);
+    margin-bottom: var(--space-2);
+  }
+
+  .card-detail {
+    font-size: var(--type-small);
+    line-height: var(--lh-small);
+    color: var(--gray-500);
+    margin-bottom: var(--space-4);
+  }
+
+  .card-why {
+    font-size: var(--type-caption);
+    line-height: var(--lh-body);
+    color: var(--gray-500);
+    border-top: 1px solid var(--gray-200);
+    padding-top: var(--space-4);
+  }
+
+  /* ─── Category Sections ───────────────────────────────────────────── */
+  .category {
+    margin-bottom: var(--space-12);
+  }
+
+  .category-header {
+    display: flex;
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-4);
+    border-bottom: 2px solid var(--gray-200);
+  }
+
+  .category-label {
+    font-size: var(--type-caption);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--kds-white);
+    background-color: var(--kds-black);
+    padding: var(--space-1) var(--space-2);
+    border-radius: 0;
+  }
+
+  .category-count {
+    font-size: var(--type-caption);
+    line-height: var(--lh-caption);
+    color: var(--gray-500);
+  }
+
+  /* ─── Utility ─────────────────────────────────────────────────────── */
   .hidden { display: none !important; }
 
   .no-results {
     display: none;
-    text-align: center;
-    padding: 48px;
-    color: var(--muted);
-    font-size: 14px;
+    padding: var(--space-12);
+    color: var(--gray-500);
+    font-size: var(--type-body);
+  }
+
+  /* ─── Breakpoints (KDS: 767 / 768–1199 / 1200+) ──────────────────── */
+  @media (max-width: 767px) {
+    header   { padding: var(--space-8) var(--space-4) var(--space-6); }
+    .toolbar { padding: var(--space-4); }
+    main     { padding: var(--space-4) var(--space-4) var(--space-8); }
+    .legend  { display: none; }
+    .grid    { grid-template-columns: 1fr; }
+  }
+
+  @media (min-width: 768px) and (max-width: 1199px) {
+    header   { padding: var(--space-8) var(--space-8) var(--space-6); }
+    .toolbar { padding: var(--space-4) var(--space-8); }
+    main     { padding: var(--space-6) var(--space-8) var(--space-12); }
   }
 </style>
 </head>
 <body>
 
 <header>
+  <div class="header-eyebrow">KEARNEY · CLAUDE SKILLS LIBRARY</div>
   <h1>Preston's Claude Skills</h1>
   <p>Skill reference — what each skill does, when to use it, and why it matters</p>
 </header>
@@ -277,12 +329,12 @@
 <div class="toolbar">
   <input type="text" id="search" placeholder="Search skills…" oninput="filterSkills(this.value)">
   <div class="legend">
-    <div class="legend-item"><div class="legend-dot" style="background:var(--cat-strategy)"></div>Strategy</div>
-    <div class="legend-item"><div class="legend-dot" style="background:var(--cat-data)"></div>Data</div>
-    <div class="legend-item"><div class="legend-dot" style="background:var(--cat-documents)"></div>Documents</div>
-    <div class="legend-item"><div class="legend-dot" style="background:var(--cat-design)"></div>Design</div>
-    <div class="legend-item"><div class="legend-dot" style="background:var(--cat-dev)"></div>Engineering</div>
-    <div class="legend-item"><div class="legend-dot" style="background:var(--cat-workflow)"></div>Workflow</div>
+    <span class="legend-item">Strategy &amp; Consulting</span>
+    <span class="legend-item">Data &amp; Analysis</span>
+    <span class="legend-item">Documents &amp; Output</span>
+    <span class="legend-item">Design &amp; Frontend</span>
+    <span class="legend-item">Engineering</span>
+    <span class="legend-item">Workflow &amp; Meta</span>
   </div>
 </div>
 
@@ -455,7 +507,7 @@
 <!-- ─── STRATEGY & CONSULTING ─────────────────────────────────────────── -->
 <section class="category" data-category="strategy">
   <div class="category-header">
-    <span class="category-label" style="background:var(--cat-strategy)">Strategy &amp; Consulting</span>
+    <span class="category-label">Strategy &amp; Consulting</span>
     <span class="category-count">11 skills</span>
   </div>
   <div class="grid">
@@ -576,7 +628,7 @@
 <!-- ─── DATA & ANALYSIS ───────────────────────────────────────────────── -->
 <section class="category" data-category="data">
   <div class="category-header">
-    <span class="category-label" style="background:var(--cat-data)">Data &amp; Analysis</span>
+    <span class="category-label">Data &amp; Analysis</span>
     <span class="category-count">5 skills</span>
   </div>
   <div class="grid">
@@ -637,7 +689,7 @@
 <!-- ─── DOCUMENTS & OUTPUT ─────────────────────────────────────────────── -->
 <section class="category" data-category="documents">
   <div class="category-header">
-    <span class="category-label" style="background:var(--cat-documents)">Documents &amp; Output</span>
+    <span class="category-label">Documents &amp; Output</span>
     <span class="category-count">7 skills</span>
   </div>
   <div class="grid">
@@ -718,7 +770,7 @@
 <!-- ─── DESIGN & FRONTEND ──────────────────────────────────────────────── -->
 <section class="category" data-category="design">
   <div class="category-header">
-    <span class="category-label" style="background:var(--cat-design)">Design &amp; Frontend</span>
+    <span class="category-label">Design &amp; Frontend</span>
     <span class="category-count">7 skills</span>
   </div>
   <div class="grid">
@@ -799,7 +851,7 @@
 <!-- ─── ENGINEERING ────────────────────────────────────────────────────── -->
 <section class="category" data-category="dev">
   <div class="category-header">
-    <span class="category-label" style="background:var(--cat-dev)">Engineering</span>
+    <span class="category-label">Engineering</span>
     <span class="category-count">9 skills</span>
   </div>
   <div class="grid">
@@ -900,7 +952,7 @@
 <!-- ─── WORKFLOW & META ────────────────────────────────────────────────── -->
 <section class="category" data-category="workflow">
   <div class="category-header">
-    <span class="category-label" style="background:var(--cat-workflow)">Workflow &amp; Meta</span>
+    <span class="category-label">Workflow &amp; Meta</span>
     <span class="category-count">6 skills</span>
   </div>
   <div class="grid">
