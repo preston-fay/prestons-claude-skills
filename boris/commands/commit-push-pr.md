@@ -6,6 +6,13 @@ description: "Full git workflow: commit, verify, push, create PR"
 
 End-to-end workflow from uncommitted changes to GitHub PR. Includes all quality gates, verification, and conventional commit format.
 
+## Live git state (pre-loaded)
+- Branch:          !`git branch --show-current 2>/dev/null`
+- Status:          !`git status --short 2>/dev/null`
+- Staged changes:  !`git diff --cached --stat 2>/dev/null || echo "nothing staged"`
+- Commits vs main: !`git log main..HEAD --oneline 2>/dev/null || git log --oneline -5 2>/dev/null`
+- Remote status:   !`git status -sb 2>/dev/null | head -1`
+
 ## Prerequisites
 
 - Changes are made and ready to commit

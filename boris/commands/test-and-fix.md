@@ -6,6 +6,11 @@ description: "Run tests and fix failures iteratively until all pass"
 
 Runs tests, analyzes failures, fixes them one at a time, and re-runs until all pass. This is the core TDD workflow command.
 
+## Live project state (pre-loaded)
+- Test framework: !`([ -f pytest.ini ] || [ -f pyproject.toml ] && grep -q pytest pyproject.toml) && echo "pytest" || ([ -f package.json ] && grep -q '"test"' package.json && echo "npm test") || echo "unknown"`
+- Recent changes: !`git diff --name-only HEAD~1 2>/dev/null | head -10 || git status --short 2>/dev/null | head -10`
+- Branch:         !`git branch --show-current 2>/dev/null`
+
 ## Process
 
 ### 1. Run Test Suite

@@ -6,6 +6,13 @@ description: "Pre-commit code review for bugs, security, and conventions"
 
 Analyzes uncommitted changes before commit to catch bugs, security issues, convention violations, and quality problems. This is your safety net before code enters git history.
 
+## Live git state (pre-loaded)
+- Branch:          !`git branch --show-current 2>/dev/null`
+- Status:          !`git status --short 2>/dev/null`
+- Unstaged diff:   !`git diff --stat 2>/dev/null`
+- Staged diff:     !`git diff --cached --stat 2>/dev/null`
+- Recent commits:  !`git log --oneline -5 2>/dev/null`
+
 ## Process
 
 ### 1. Check Git Status

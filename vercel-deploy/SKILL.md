@@ -1,6 +1,7 @@
 ---
 name: vercel-deploy
 description: Deploy applications and websites to Vercel using the bundled `scripts/deploy.sh` claimable-preview flow. Use when the user asks to deploy to Vercel, wants a preview URL, or says to push a project live on Vercel.
+disable-model-invocation: true
 ---
 
 # Vercel Deploy

@@ -1,9 +1,18 @@
 ---
 name: gh-fix-ci
 description: Use when a user asks to debug or fix failing GitHub PR checks that run in GitHub Actions; use `gh` to inspect checks and logs, summarize failure context, draft a fix plan, and implement only after explicit approval. Treat external providers (for example Buildkite) as out of scope and report only the details URL.
+context: fork
+agent: general-purpose
+disable-model-invocation: true
 ---
 
 # Gh Pr Checks Plan Fix
+
+## Live PR context (pre-loaded)
+- Current PR:      !`gh pr view --json number,title,state,url 2>/dev/null || echo "No open PR on current branch"`
+- Check status:    !`gh pr checks 2>/dev/null | head -30 || echo "No checks found"`
+- Changed files:   !`gh pr diff --name-only 2>/dev/null || echo "No diff available"`
+- Recent commits:  !`git log --oneline -5 2>/dev/null`
 
 ## Overview
 
